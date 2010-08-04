@@ -1,0 +1,96 @@
+Welcome to SPARQL-OSC, a simple multimedia messaging extension for the Semantic Web.  Read on for overview of the technique and the reference implementation.
+
+h2. SPARQL
+
+The "SPARQL":http://www.w3.org/TR/rdf-sparql-query/ protocol and RDF query language is the most standard way of interacting with Semantic Web data.  For example, this query matches RDF data about blog or microblog posts which have been annotated with geospatial information:
+
+bc. PREFIX sioc: <http://rdfs.org/sioc/ns#>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX geonames: <http://www.geonames.org/ontology#>
+SELECT ?long ?lat ?country ?content WHERE {
+    ?post sioc:content ?content .
+    ?post geo:location ?loc .
+    ?loc geonames:countryCode ?country .
+    ?loc geo:long ?long .
+    ?loc geo:lat ?lat .
+}
+
+In evaluating a query, a SPARQL query engine binds specific values to the variables named in the query, e.g.
+
+bc. long : 2.916667
+lat : 51.233333
+country : "BE"
+content : "Wondering how I got here."
+
+There are even ways to evaluate SPARQL queries over *streams* of RDF data in near-real time.  See, for example, "C-SPARQL":http://data.semanticweb.org/conference/www/2009/paper/111/html.  As new data comes in, new results are generated and pushed to the data consumer.
+
+h2. OSC
+
+"Open Sound Control":http://opensoundcontrol.org/introduction-osc is an efficient messaging protocol which is the emerging standard for real-time communication among multimedia devices and software.  OSC messages contain an address pattern for the recipient of the data, as well as any number of data-typed arguments.  For example, an OSC message might report the position and pressure of a finger on an XY pad:
+
+bc. /myinterface/sensors/xy1 88 14 0.99
+
+Other messages might tell a robotic arm to move to a particular position in space, a speech synthesizer to say the word "Belgium", or an LED display to light up the number "42".
+
+What if the Semantic Web events could trigger OSC messages?  That might look something like this:
+
+bc. /sparql-osc/test/geotweets 2.916667 51.233333 "BE" "Wondering how I got here."
+
+h2. SPARQL-OSC
+
+It's actually very easy to translate SPARQL results to OSC messages.  All we need is an address pattern as well as a simple mapping of SPARQL variables to abstract OSC arguments, including the names of the variables, the data types of the arguments, and the order of arguments.  OSC's atomic data types are compatible with a subset of the "XML Schema datatypes":http://www.w3.org/TR/xmlschema-2/:
+
+|_. OSC data type|_. XML Schema types|
+|int32|xsd:integer and its derivatives|
+|float32|xsd:float, xsd:double|
+|OSC-string|xsd:string ^(1)^|
+|OSC-blob|xsd:string|
+
+fn1. URIs, plain literals, and typed literals with data types not otherwise mentioned can also be mapped to OSC-string.
+
+Now, making an RDF stream into an OSC stream can proceed in as little as two steps:
+# Instantiate a *listener* to evaluate SPARQL queries against an RDF data source and generate OSC messages
+# Register a SPARQL-to-OSC *mapping* with the listener, including:
+** the SPARQL *query*
+** the *arguments* definition
+** a *network address*, *port*, and OSC *address pattern* for the recipient(s) of the message
+
+Once a mapping has been registered with the listener, downstream OSC clients will receive generated messages in as close to real-time as the SPARQL query mechanism allows.
+
+h2. A Java implementation
+
+The source code available here on GitHub uses "OpenRDF":http://www.openrdf.org/ and "JavaOSC":http://www.illposed.com/software/javaosc.html for an extensible implementation of the above.  At present, there is just one kind of listener, which simulates a continuous SPARQL query engine by polling a triple store at regular intervals.  E.g.
+
+bc. // Instantiate a listener
+SparqlOscListener l = new PollingSparqlOscListener(store.getSail(), 10000);
+// Define the mapping
+String query = "PREFIX sioc: <http://rdfs.org/sioc/ns#>\n" +
+        "PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>\n" +
+        "PREFIX geonames: <http://www.geonames.org/ontology#>\n" +
+        "SELECT ?long ?lat ?country ?content WHERE {\n" +
+        "    ?post sioc:content ?content .\n" +
+        "    ?post geo:location ?loc .\n" +
+        "    ?loc geonames:countryCode ?country .\n" +
+        "    ?loc geo:long ?long .\n" +
+        "    ?loc geo:lat ?lat .\n" +
+        "}";
+InetAddress address = Inet6Address.getLocalHost();
+int port = 5432;
+String pattern = "/sparql-osc/test/geotweets";
+SparqlOscMapping m = new SparqlOscMapping(query, address, port, pattern);
+m.addVariable("long", OscType.FLOAT32);
+m.addVariable("lat", OscType.FLOAT32);
+m.addVariable("country", OscType.STRING);
+m.addVariable("content", OscType.STRING);
+// Register the mapping
+l.register(m);
+
+If you use "Maven":http://maven.apache.org/, you can import SPARQL-OSC like so:
+
+bc. <dependency>
+    <groupId>net.fortytwo</groupId>
+    <artifactId>sparql-osc</artifactId>
+    <version>0.1</version>
+</dependency>
+
+Please see the "API documentation":http://fortytwo.net/projects/sparql-osc/api/ for more details.
