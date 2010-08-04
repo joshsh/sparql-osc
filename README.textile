@@ -40,7 +40,7 @@ Depending on the kind of data available, we can control OSC-enabled software and
 
 h2. SPARQL-OSC
 
-It's actually very easy to translate SPARQL results to OSC messages.  All we need is an address pattern as well as a simple mapping of SPARQL variables to abstract OSC arguments, including the names of the variables, the data types of the arguments, and the order of arguments.  OSC's atomic data types are compatible with a subset of the "XML Schema datatypes":http://www.w3.org/TR/xmlschema-2/:
+It's actually very easy to translate SPARQL results to OSC messages.  All we need is an OSC address pattern as well as a pairwise mapping of SPARQL variables to abstract OSC arguments, including the names of the variables, the data types of the arguments, and the order of arguments.  OSC's atomic data types are compatible with a subset of the "XML Schema datatypes":http://www.w3.org/TR/xmlschema-2/:
 
 |_. OSC data type|_. XML Schema types|
 |int32|xsd:integer and its derivatives|
@@ -89,10 +89,19 @@ l.register(m);
 
 If you use "Maven":http://maven.apache.org/, you can import SPARQL-OSC like so:
 
-bc. <dependency>
-    <groupId>net.fortytwo</groupId>
-    <artifactId>sparql-osc</artifactId>
-    <version>0.1</version>
-</dependency>
+bc. <repositories>
+    <repository>
+        <id>fortytwo</id>
+        <name>fortytwo.net Maven repository</name>
+        <url>http://fortytwo.net/maven2</url>
+    </repository>
+</repositories>
+<dependencies>
+    <dependency>
+        <groupId>net.fortytwo</groupId>
+        <artifactId>sparql-osc</artifactId>
+        <version>0.1</version>
+    </dependency>
+</dependencies>
 
 Please see the "API documentation":http://fortytwo.net/projects/sparql-osc/api/ for more details.
