@@ -22,7 +22,7 @@ lat : 51.233333
 country : "BE"
 content : "Wondering how I got here."
 
-There are even ways to evaluate SPARQL queries over *streams* of RDF data in near-real time.  See, for example, "C-SPARQL":http://data.semanticweb.org/conference/www/2009/paper/111/html.  As new data comes in, new results are generated and pushed to the data consumer.
+There are even ways to evaluate SPARQL queries over *streams* of RDF data in near-real time.  See, for example, "C-SPARQL":http://data.semanticweb.org/conference/www/2009/paper/111/html, "Streaming SPARQL":http://data.semanticweb.org/conference/eswc/2008/paper/3/html and "sparqlPuSH":http://code.google.com/p/sparqlpush/.  As new data comes in, new results are generated and pushed to the data consumer.
 
 h2. OSC
 
