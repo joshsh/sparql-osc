@@ -1,8 +1,8 @@
-Welcome to SPARQL-OSC, a simple multimedia messaging extension for the Semantic Web.  Read on for overview of the technique and the reference implementation.
+Welcome to SPARQL-OSC, a simple multimedia messaging extension for the Semantic Web.  Read on for an overview of the technique and the reference implementation.
 
 h2. SPARQL
 
-The "SPARQL":http://www.w3.org/TR/rdf-sparql-query/ protocol and RDF query language is the most standard way of interacting with Semantic Web data.  For example, this query matches RDF data about blog or microblog posts which have been annotated with geospatial information:
+The "SPARQL":http://www.w3.org/TR/rdf-sparql-query/ protocol and RDF query language provides the most standard way of searching over Semantic Web data.  For example, this query matches RDF data about geo-tagged blog or microblog posts:
 
 bc. PREFIX sioc: <http://rdfs.org/sioc/ns#>
 PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
@@ -15,7 +15,7 @@ SELECT ?long ?lat ?country ?content WHERE {
     ?loc geo:lat ?lat .
 }
 
-In evaluating a query, a SPARQL query engine binds specific values to the variables named in the query, e.g.
+In evaluating a query, a SPARQL query engine produces any number of tuples which bind specific values to the variables named in the query, e.g.
 
 bc. long : 2.916667
 lat : 51.233333
@@ -26,15 +26,17 @@ There are even ways to evaluate SPARQL queries over *streams* of RDF data in nea
 
 h2. OSC
 
-"Open Sound Control":http://opensoundcontrol.org/introduction-osc is an efficient messaging protocol which is the emerging standard for real-time communication among multimedia devices and software.  OSC messages contain an address pattern for the recipient of the data, as well as any number of data-typed arguments.  For example, an OSC message might report the position and pressure of a finger on an XY pad:
+"Open Sound Control":http://opensoundcontrol.org/introduction-osc is an efficient messaging protocol which is the emerging standard for real-time communication among multimedia devices and software.  OSC messages contain an address pattern for the recipient of the message, as well as any number of data-typed arguments.  For example, a certain OSC message might report the position and pressure of a finger on an XY pad:
 
 bc. /myinterface/sensors/xy1 88 14 0.99
 
 Other messages might tell a robotic arm to move to a particular position in space, a speech synthesizer to say the word "Belgium", or an LED display to light up the number "42".
 
-What if the Semantic Web events could trigger OSC messages?  That might look something like this:
+So, what if Semantic Web events could trigger OSC messages?  For the microblogging example above, that might look something like this:
 
 bc. /sparql-osc/test/geotweets 2.916667 51.233333 "BE" "Wondering how I got here."
+
+Depending on the kind of data available, we can control OSC-enabled software and hardware in ways which take advantage of the expressive power of SPARQL and the ever-expanding "cloud":http://linkeddata.org/ of machine-friendly knowledge on the Web.
 
 h2. SPARQL-OSC
 
@@ -59,7 +61,7 @@ Once a mapping has been registered with the listener, downstream OSC clients wil
 
 h2. A Java implementation
 
-The source code available here on GitHub uses "OpenRDF":http://www.openrdf.org/ and "JavaOSC":http://www.illposed.com/software/javaosc.html for an extensible implementation of the above.  At present, there is just one kind of listener, which simulates a continuous SPARQL query engine by polling a triple store at regular intervals.  E.g.
+The source code available here on GitHub uses "OpenRDF":http://www.openrdf.org/ and "JavaOSC":http://www.illposed.com/software/javaosc.html for an extensible implementation of the above.  At present, there is just one kind of listener, which simulates a continuous SPARQL query engine by polling a triple store at regular intervals.  Here is a usage example:
 
 bc. // Instantiate a listener
 SparqlOscListener l = new PollingSparqlOscListener(store.getSail(), 10000);
