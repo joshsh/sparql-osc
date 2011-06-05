@@ -1,3 +1,5 @@
+!https://github.com/joshsh/sparql-osc/wiki/SPARQL-OSC_logo_medium.png(SPARQL-OSC logo)!
+
 Welcome to SPARQL-OSC, a simple multimedia messaging extension for the Semantic Web.  Read on for an overview of the technique and the reference implementation.
 
 h2. SPARQL
