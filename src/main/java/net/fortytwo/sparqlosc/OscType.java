@@ -9,9 +9,7 @@ import org.openrdf.model.vocabulary.XMLSchema;
 /**
  * A data type for SPARQL-to-OSC mappings which constrains the translation of RDF values to OSC values.
  *
- * User: josh
- * Date: Aug 3, 2010
- * Time: 2:43:33 PM
+ * @author Joshua Shinavier (http://fortytwo.net)
  */
 public enum OscType {
     INT32,  // OSC's Int32 types, which is compatible with xsd:integer and xsd:int

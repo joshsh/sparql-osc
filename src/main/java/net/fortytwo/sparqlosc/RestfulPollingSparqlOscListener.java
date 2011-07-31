@@ -6,15 +6,15 @@ import org.openrdf.sail.Sail;
 import org.openrdf.sail.SailException;
 
 /**
- * User: josh
- * Date: Aug 10, 2010
- * Time: 3:09:30 PM
+ * A SPARQL-OSC listener which polls a remote SPARQL endpoint periodically.
+ *
+ * @author Joshua Shinavier (http://fortytwo.net)
  */
 public class RestfulPollingSparqlOscListener extends PollingSparqlOscListener {
     /**
-     * @param sparqlUrl     URL of a SPARQL endpoint against which to evaluate queries
-     * @param interval how often the listener should poll the triple store for new results
-     * @throws org.openrdf.sail.SailException if there is a problem connecting to the SPARQL endpoint
+     * @param sparqlUrl URL of a SPARQL endpoint against which to evaluate queries
+     * @param interval  how often the listener should poll the triple store for new results
+     * @throws SailException if there is a problem connecting to the SPARQL endpoint
      */
     public RestfulPollingSparqlOscListener(final String sparqlUrl,
                                            final long interval) throws SailException {

@@ -24,9 +24,7 @@ import java.util.TimerTask;
 /**
  * A simple SPARQL-OSC listener which polls a triple store periodically for new results for the SPARQL queries which have been registered.
  *
- * User: josh
- * Date: Jul 31, 2010
- * Time: 3:14:29 PM
+ * @author Joshua Shinavier (http://fortytwo.net)
  */
 public class PollingSparqlOscListener extends SparqlOscListener {
     private static final String BASE_URI = "http://example.org/bogusBaseURI";
@@ -35,7 +33,7 @@ public class PollingSparqlOscListener extends SparqlOscListener {
     private final Sail sail;
 
     /**
-     * @param sail a Sesame storage and inference layer (Sail) against which to evaluate SPARQL queries
+     * @param sail     a Sesame storage and inference layer (Sail) against which to evaluate SPARQL queries
      * @param interval how often the listener should poll the triple store for new results
      */
     public PollingSparqlOscListener(final Sail sail,

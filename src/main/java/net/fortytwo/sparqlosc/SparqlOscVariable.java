@@ -3,9 +3,7 @@ package net.fortytwo.sparqlosc;
 /**
  * A typed variable for SPARQL-to-OSC mappings.
  *
- * User: josh
- * Date: Aug 3, 2010
- * Time: 3:10:04 PM
+ * @author Joshua Shinavier (http://fortytwo.net)
  */
 public class SparqlOscVariable {
     private final String name;

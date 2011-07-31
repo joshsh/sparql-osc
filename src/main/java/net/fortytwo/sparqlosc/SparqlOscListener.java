@@ -15,10 +15,8 @@ import java.util.logging.Logger;
  * An object which translates streaming SPARQL results into OSC messages on the fly.  It connects to an RDF triple store
  * and evaluates SPARQL queries on behalf of downstream OSC applications.  SPARQL results are translated into OSC
  * messages, according to registered mappings, and sent out in real time.
- * 
- * User: josh
- * Date: Jul 31, 2010
- * Time: 4:59:43 PM
+ *
+ * @author Joshua Shinavier (http://fortytwo.net)
  */
 public abstract class SparqlOscListener {
     static {

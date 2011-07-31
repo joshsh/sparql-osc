@@ -7,10 +7,8 @@ import java.util.List;
 
 /**
  * A well-defined mapping between a SPARQL query and an OSC message.
- * <p/>
- * User: josh
- * Date: Jul 31, 2010
- * Time: 6:01:21 PM
+ *
+ * @author Joshua Shinavier (http://fortytwo.net)
  */
 public class SparqlOscMapping {
     private final String sparqlQuery;
