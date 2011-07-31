@@ -118,4 +118,12 @@
         </plugins>
     </reporting>
 
+    <distributionManagement>
+        <repository>
+            <id>fortytwo</id>
+            <name>fortytwo.net Maven repository</name>
+            <url>file:///mnt/repository</url>
+        </repository>
+    </distributionManagement>
+
 </project>
