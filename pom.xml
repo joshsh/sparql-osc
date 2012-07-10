@@ -25,7 +25,7 @@
     </repositories>
 
     <properties>
-        <sesame.version>2.6.0</sesame.version>
+        <sesame.version>2.6.6</sesame.version>
         <elmo.version>1.5</elmo.version>
         <sesametools.version>1.6</sesametools.version>
         <junit.version>4.5</junit.version>
