@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.fortytwo</groupId>
     <artifactId>sparql-osc</artifactId>
-    <version>0.2</version>
+    <version>1.0</version>
     <packaging>jar</packaging>
     <name>SPARQL-OSC</name>
     <description>SPARQL-to-OSC connector for Java</description>
@@ -25,8 +25,7 @@
     </repositories>
 
     <properties>
-        <sesame.version>2.6.6</sesame.version>
-        <elmo.version>1.5</elmo.version>
+        <sesame.version>2.6.10</sesame.version>
         <sesametools.version>1.6</sesametools.version>
         <junit.version>4.5</junit.version>
     </properties>
@@ -46,11 +45,6 @@
             <groupId>org.openrdf.sesame</groupId>
             <artifactId>sesame-sail-api</artifactId>
             <version>${sesame.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openrdf.elmo</groupId>
-            <artifactId>elmo-repository</artifactId>
-            <version>${elmo.version}</version>
         </dependency>
         <dependency>
             <groupId>net.fortytwo.sesametools</groupId>
