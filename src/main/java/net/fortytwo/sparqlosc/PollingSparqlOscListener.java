@@ -75,6 +75,7 @@ public class PollingSparqlOscListener extends SparqlOscListener {
 
         SailConnection c = sail.getConnection();
         try {
+            c.begin();
             for (SubscriberWrapper w : buffer) {
                 ParsedQuery query = w.getQuery();
 
@@ -99,6 +100,7 @@ public class PollingSparqlOscListener extends SparqlOscListener {
                 }
             }
         } finally {
+            c.rollback();
             c.close();
         }
     }
