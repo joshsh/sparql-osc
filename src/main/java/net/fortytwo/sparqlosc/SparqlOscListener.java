@@ -12,9 +12,9 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 /**
- * An object which translates streaming SPARQL results into OSC messages on the fly.  It connects to an RDF triple store
- * and evaluates SPARQL queries on behalf of downstream OSC applications.  SPARQL results are translated into OSC
- * messages, according to registered mappings, and sent out in real time.
+ * An object which translates streaming SPARQL results into OSC messages on the fly.
+ * It connects to an RDF triple store and evaluates SPARQL queries on behalf of downstream OSC applications.
+ * SPARQL results are translated into OSC messages, according to registered mappings, and sent out in real time.
  *
  * @author Joshua Shinavier (http://fortytwo.net)
  */
@@ -30,10 +30,10 @@ public abstract class SparqlOscListener {
             throw new ExceptionInInitializerError(e);
         }
 
-        LOGGER = Logger.getAnonymousLogger();
+        logger = Logger.getAnonymousLogger();
     }
 
-    protected static final Logger LOGGER;
+    protected static final Logger logger;
 
     /**
      * Register a new mapping with this listener.
@@ -44,7 +44,8 @@ public abstract class SparqlOscListener {
 
     /**
      * Unregister a previously registered mapping.
-     * @param mapping results for this mapping will no longer be generated, and corresponding OSC messages will no longer be sent out
+     * @param mapping results for this mapping will no longer be generated,
+     *                and corresponding OSC messages will no longer be sent out
      */
     public abstract void unregister(final SparqlOscMapping mapping);
 
@@ -52,7 +53,7 @@ public abstract class SparqlOscListener {
                                       final SparqlOscMapping mapping) throws SparqlOscMappingException, IOException {
         OSCMessage msg = bindingSetToOSCMessage(mapping.getAddressPattern(), result, mapping.getVariables());
 
-        LOGGER.fine("sending OSC message: " + msg);
+        logger.fine("sending OSC message: " + msg);
 
         OSCPortOut sender = new OSCPortOut(mapping.getInetAddress(), mapping.getPort());
         sender.send(msg);
@@ -60,7 +61,9 @@ public abstract class SparqlOscListener {
 
     private OSCMessage bindingSetToOSCMessage(final String addressPattern,
                                               final BindingSet set,
-                                              final List<SparqlOscVariable> variables) throws SparqlOscMappingException {
+                                              final List<SparqlOscVariable> variables)
+            throws SparqlOscMappingException {
+
         OSCMessage msg = new OSCMessage(addressPattern);
 
         for (SparqlOscVariable arg : variables) {

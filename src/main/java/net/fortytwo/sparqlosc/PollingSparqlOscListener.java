@@ -22,7 +22,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * A simple SPARQL-OSC listener which polls a triple store periodically for new results for the SPARQL queries which have been registered.
+ * A simple SPARQL-OSC listener which polls a triple store periodically for new results
+ * for the SPARQL queries which have been registered.
  *
  * @author Joshua Shinavier (http://fortytwo.net)
  */
@@ -47,7 +48,7 @@ public class PollingSparqlOscListener extends SparqlOscListener {
                 try {
                     runQueries();
                 } catch (Throwable t) {
-                    LOGGER.severe("error intercepted:");
+                    logger.severe("error intercepted:");
                     t.printStackTrace(System.err);
                 }
             }
@@ -91,7 +92,7 @@ public class PollingSparqlOscListener extends SparqlOscListener {
                                 this.handleSparqlResult(bs, w.getSubscriber());
                             }
                         } catch (SparqlOscMappingException e) {
-                            LOGGER.warning("mapping error ignored");
+                            logger.warning("mapping error ignored");
                             e.printStackTrace(System.err);
                         }
                     }
