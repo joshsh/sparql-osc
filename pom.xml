@@ -45,8 +45,8 @@
     </developers>
 
     <properties>
-        <sesame.version>2.7.10</sesame.version>
-        <sesametools.version>1.8</sesametools.version>
+        <sesame.version>2.7.14</sesame.version>
+        <sesametools.version>1.9</sesametools.version>
         <junit.version>4.11</junit.version>
     </properties>
 
